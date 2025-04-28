@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Ganhe Recompensas - Clique nos Links!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsivo -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+    header, footer {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .anuncio {
+      background: #ccc;
+      height: 90px;
+      margin: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+      font-size: 18px;
+    }
+    .conteudo {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+      position: relative;
+      min-height: 400px;
+    }
+    .texto-distracao {
+      margin-bottom: 20px;
+      line-height: 1.6;
+      color: #555;
+    }
+    .botao-link {
+      padding: 15px 25px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 18px;
+      display: none;
+      position: absolute;
+    }
+    #timer {
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+      color: #d9534f;
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .conteudo {
+        padding: 15px;
+      }
+      .botao-link {
+        font-size: 16px;
+        padding: 12px 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .botao-link {
+        font-size: 14px;
+        padding: 10px 16px;
+      }
+      .anuncio {
+        height: 60px;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Complete as Etapas e Ganhe!</h1>
+</header>
+
+<div class="anuncio">
+  [Seu anúncio aqui]
+</div>
+
+<div class="conteudo">
+  <div id="timer">Carregando...</div>
+  <div class="texto-distracao" id="texto">
+    <p>Bem-vindo! Leia atentamente todas as instruções antes de prosseguir. Seu foco e atenção são importantes para completar todas as tarefas necessárias. Cada etapa é essencial para garantir sua recompensa.</p>
+    <p>Tenha paciência! A cada link, uma nova janela será aberta. Certifique-se de clicar no botão "CONTINUE" nas páginas de redirecionamento para que seu progresso seja registrado corretamente.</p>
+    <p>Evite fechar as janelas prematuramente. Leia todas as informações exibidas e complete as ações necessárias. Seu sucesso depende do cumprimento adequado de cada uma dessas etapas simples, mas fundamentais.</p>
+  </div>
+  <button class="botao-link" id="botaoLink" onclick="abrirLink()">Clique Aqui para o Primeiro Link</button>
+</div>
+
+<div class="anuncio">
+  [Outro anúncio aqui]
+</div>
+
+<footer>
+  <p>© 2025 Todos os direitos reservados.</p>
+</footer>
+
+<script>
+  const links = [
+      "https://fir3.net/sJ3ltz",
+      "https://fir3.net/sJ3ltz",
+      "https://fir3.net/sJ3ltz",
+      "https://fir3.net/sJ3ltz",
+      "https://fir3.net/sJ3ltz"
+  ];
+
+  let currentLink = 0;
+  let positions = [
+      {top: "50px", left: "30px"},
+      {top: "120px", right: "30px"},
+      {bottom: "150px", left: "50px"},
+      {bottom: "100px", right: "50px"},
+      {top: "200px", left: "50%"}
+  ];
+
+  let countdown;
+
+  function iniciarContagem() {
+    let tempo = 10;
+    const timerElement = document.getElementById('timer');
+    timerElement.innerText = `Aguarde: ${tempo} segundos`;
+
+    countdown = setInterval(() => {
+      tempo--;
+      if (tempo > 0) {
+        timerElement.innerText = `Aguarde: ${tempo} segundos`;
+      } else {
+        clearInterval(countdown);
+        timerElement.innerText = "Pronto! Clique para continuar.";
+        mostrarBotao();
+      }
+    }, 1000);
+  }
+
+  function mostrarBotao() {
+    const botao = document.getElementById('botaoLink');
+    botao.style.display = 'block';
+    let pos = positions[currentLink];
+    botao.style.top = pos.top || 'auto';
+    botao.style.left = pos.left || 'auto';
+    botao.style.right = pos.right || 'auto';
+    botao.style.bottom = pos.bottom || 'auto';
+    if (pos.left === "50%") {
+        botao.style.transform = "translateX(-50%)";
+    } else {
+        botao.style.transform = "none";
+    }
+  }
+
+  function abrirLink() {
+    window.open(links[currentLink], '_blank');
+
+    currentLink++;
+    const botao = document.getElementById('botaoLink');
+    botao.style.display = 'none';
+
+    if (currentLink < links.length) {
+      botao.innerText = `Clique Aqui para o Próximo Link`;
+      iniciarContagem();
+    } else {
+      document.getElementById('timer').innerText = "Parabéns! Você concluiu todas as etapas.";
+      botao.innerText = "Todas as etapas completas!";
+      botao.disabled = true;
+      botao.style.display = 'block';
+    }
+  }
+
+  iniciarContagem();
+</script>
+
+</body>
+</html>
